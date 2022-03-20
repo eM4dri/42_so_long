@@ -1,6 +1,7 @@
 # 42_so_long
 
-The project is a small 2D game where a rabbit goes to its hole after eating some carrots. Bonus part contains enemies to make game trickier.
+The project is a small 2D game where a rabbit goes to its hole after eating some carrots. Bonus part contains enemies to make game trickier. so_long is a graphic design project. It will help you improve your skills in the following areas: window management, event handling, colors, textures..
+
 
 ## Samples
 ![so_long2](https://user-images.githubusercontent.com/81930740/138584119-098c4fa0-6d80-4ad2-bbc4-03d608b962bb.gif)
