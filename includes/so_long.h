@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/24 08:29:13 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/04/09 14:23:34 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	animate_enemies(t_map_lines **map, int *clock);
 void	rabbit_survive(t_map_lines **imap, t_map_lines *emap);
 void	clean_carrots(t_map_lines **emap, t_map_lines *imap);
 void	draw_lines_objects_enemies(t_vars *v, char *str, int nbr_line, \
-		 int pixel);
+				int pixel);
 void	ft_draw(t_vars *vars, t_map_lines *map, \
 				void (*func)(t_vars *, char *, int, int));
 int		close_window( t_vars *vars);
