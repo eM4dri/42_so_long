@@ -6,11 +6,36 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:29:57 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/09 09:53:28 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:51:33 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static void	create_images(t_vars *v, int a)
+{
+	v->imgs.carrot = mlx_xpm_file_to_image(v->mlx, CARROT, &a, &a);
+	v->imgs.hole = mlx_xpm_file_to_image(v->mlx, HOLE, &a, &a);
+	v->imgs.rabbit_down = mlx_xpm_file_to_image(v->mlx, RABBIT_D, &a, &a);
+	v->imgs.rabbit_ko = mlx_xpm_file_to_image(v->mlx, RABBIT_KO, &a, &a);
+	v->imgs.rabbit_left = mlx_xpm_file_to_image(v->mlx, RABBIT_L, &a, &a);
+	v->imgs.rabbit_right = mlx_xpm_file_to_image(v->mlx, RABBIT_R, &a, &a);
+	v->imgs.rabbit_up = mlx_xpm_file_to_image(v->mlx, RABBIT_U, &a, &a);
+	v->imgs.spikes_down = mlx_xpm_file_to_image(v->mlx, SPIKES_D, &a, &a);
+	v->imgs.spikes_up = mlx_xpm_file_to_image(v->mlx, SPIKES_U, &a, &a);
+	v->imgs.fox_down = mlx_xpm_file_to_image(v->mlx, FOX_D, &a, &a);
+	v->imgs.fox_up = mlx_xpm_file_to_image(v->mlx, FOX_U, &a, &a);
+	v->imgs.rat_left = mlx_xpm_file_to_image(v->mlx, RAT_L, &a, &a);
+	v->imgs.rat_right = mlx_xpm_file_to_image(v->mlx, RAT_R, &a, &a);
+	v->imgs.odd_terrain = mlx_xpm_file_to_image(v->mlx, ODD, &a, &a);
+	v->imgs.pair_terrain = mlx_xpm_file_to_image(v->mlx, PAIR, &a, &a);
+	v->imgs.wall = mlx_xpm_file_to_image(v->mlx, WALL, &a, &a);
+	v->imgs.black = mlx_xpm_file_to_image(v->mlx, BLACK, &a, &a);
+	v->imgs.sky_br = mlx_xpm_file_to_image(v->mlx, SKY_BR, &a, &a);
+	v->imgs.sky_bl = mlx_xpm_file_to_image(v->mlx, SKY_BL, &a, &a);
+	v->imgs.sky_tl = mlx_xpm_file_to_image(v->mlx, SKY_TL, &a, &a);
+	v->imgs.sky_tr = mlx_xpm_file_to_image(v->mlx, SKY_TR, &a, &a);
+}
 
 static void	init_vars(t_vars *v, char *s)
 {
@@ -28,6 +53,7 @@ static void	init_vars(t_vars *v, char *s)
 	v->enemy_clock = CLOCKENEMIES;
 	v->enemy_clock_watch = CLOCKWATCH;
 	v->win = mlx_new_window(v->mlx, v->win_width, v->win_height, s);
+	create_images(v, 0);
 }
 
 static void	init_maps(t_vars *v)
@@ -49,12 +75,14 @@ void	ft_leaks(void)
 {
 	system("leaks parse");
 }
+#define LEAKS  0
 
 int	main(int argc, char **argv)
 {
 	t_vars		v;
 
-	atexit(ft_leaks);
+	if (LEAKS)
+		atexit(ft_leaks);
 	v.map = NULL;
 	if (argc != 2)
 		pre_map_exit(v.map, strerror(EINVAL), 0);

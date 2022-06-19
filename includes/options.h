@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/09 10:12:04 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/06/19 20:22:04 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #  define ALLOWEXIT 0
 # endif
 # ifndef CLOCKENEMIES
-#  define CLOCKENEMIES 0
+#  define CLOCKENEMIES 20
 # endif
 # ifndef CLOCKTICKS
 #  define CLOCKTICKS 1
@@ -25,7 +25,7 @@
 #  define CLOCKWATCH 3
 # endif
 # ifndef DELAY_MULTIPLIER
-#  define DELAY_MULTIPLIER 0
+#  define DELAY_MULTIPLIER 5
 # endif
 # ifndef ENEMIES
 #  define ENEMIES 0
@@ -37,7 +37,7 @@
 #  define KILL_ALL_RABBITS 1
 # endif
 # ifndef IMAGE_BIG
-#  define IMAGE_BIG 0
+#  define IMAGE_BIG 1
 # endif
 # ifndef PIXFOWARD
 #  define PIXFOWARD 1

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/04/09 14:23:34 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:47:46 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,34 @@ typedef struct s_map_lines
 	struct s_map_lines	*next;
 }t_map_lines;
 
+typedef struct s_imgs{
+	void	*carrot;
+	void	*hole;
+	void	*rabbit_down;
+	void	*rabbit_ko;
+	void	*rabbit_left;
+	void	*rabbit_right;
+	void	*rabbit_up;
+	void	*spikes_down;
+	void	*spikes_up;
+	void	*fox_down;
+	void	*fox_up;
+	void	*rat_left;
+	void	*rat_right;
+	void	*odd_terrain;
+	void	*pair_terrain;
+	void	*wall;
+	void	*black;
+	void	*sky_br;
+	void	*sky_bl;
+	void	*sky_tl;
+	void	*sky_tr;
+}t_imgs;
+
 typedef struct s_vars{
 	void		*mlx;
 	void		*win;
-	void		*img;
+	t_imgs		imgs;
 	t_map_lines	*map;
 	t_map_lines	*imap;
 	t_map_lines	*emap;
@@ -84,5 +108,4 @@ void	ft_draw(t_vars *vars, t_map_lines *map, \
 int		close_window( t_vars *vars);
 int		key_hook(int keycode, t_vars *vars);
 int		draw_map_loop(t_vars *vars);
-void	*ft_mlx_xpm_file_to_image(void *mlx, char *filename);
 #endif

@@ -6,17 +6,43 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:30:12 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/09 10:13:46 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:28:25 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	close_window( t_vars *vars)
+static void	destroy_images(t_vars *vars)
+{
+	mlx_destroy_image(vars->mlx, vars->imgs.carrot);
+	mlx_destroy_image(vars->mlx, vars->imgs.hole);
+	mlx_destroy_image(vars->mlx, vars->imgs.rabbit_down);
+	mlx_destroy_image(vars->mlx, vars->imgs.rabbit_ko);
+	mlx_destroy_image(vars->mlx, vars->imgs.rabbit_left);
+	mlx_destroy_image(vars->mlx, vars->imgs.rabbit_right);
+	mlx_destroy_image(vars->mlx, vars->imgs.rabbit_up);
+	mlx_destroy_image(vars->mlx, vars->imgs.spikes_down);
+	mlx_destroy_image(vars->mlx, vars->imgs.spikes_up);
+	mlx_destroy_image(vars->mlx, vars->imgs.fox_down);
+	mlx_destroy_image(vars->mlx, vars->imgs.fox_up);
+	mlx_destroy_image(vars->mlx, vars->imgs.rat_left);
+	mlx_destroy_image(vars->mlx, vars->imgs.rat_right);
+	mlx_destroy_image(vars->mlx, vars->imgs.odd_terrain);
+	mlx_destroy_image(vars->mlx, vars->imgs.pair_terrain);
+	mlx_destroy_image(vars->mlx, vars->imgs.wall);
+	mlx_destroy_image(vars->mlx, vars->imgs.black);
+	mlx_destroy_image(vars->mlx, vars->imgs.sky_br);
+	mlx_destroy_image(vars->mlx, vars->imgs.sky_bl);
+	mlx_destroy_image(vars->mlx, vars->imgs.sky_tl);
+	mlx_destroy_image(vars->mlx, vars->imgs.sky_tr);
+}
+
+int	close_window(t_vars *vars)
 {
 	ft_freemap(vars->map);
 	ft_freemap(vars->imap);
 	ft_freemap(vars->emap);
+	destroy_images(vars);
 	mlx_destroy_window(vars->mlx, vars->win);
 	exit (0);
 }

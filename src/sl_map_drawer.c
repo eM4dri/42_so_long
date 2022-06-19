@@ -6,16 +6,18 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:18:50 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/24 08:31:57 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/06/19 20:04:43 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#define RED_COLOR 0x00FF0000
 
 static void	draw_lines_sky(t_vars *v, char *str, int nbr_line, int pixel)
 {
 	int		odd;
 	size_t	len;
+	void	*img;
 
 	odd = nbr_line;
 	pixel = v->save % (2 * WIDTH) - 2 * WIDTH;
@@ -23,16 +25,15 @@ static void	draw_lines_sky(t_vars *v, char *str, int nbr_line, int pixel)
 	while (len-- && ++odd)
 	{
 		if (odd % 2 && nbr_line % 2)
-			v->img = ft_mlx_xpm_file_to_image(v->mlx, SKY_BR);
+			img = v->imgs.sky_br;
 		else if (nbr_line % 2)
-			v->img = ft_mlx_xpm_file_to_image(v->mlx, SKY_BL);
+			img = v->imgs.sky_bl;
 		else if (odd % 2)
-			v->img = ft_mlx_xpm_file_to_image(v->mlx, SKY_TL);
+			img = v->imgs.sky_tl;
 		else
-			v->img = ft_mlx_xpm_file_to_image(v->mlx, SKY_TR);
-		mlx_put_image_to_window(v->mlx, v->win, v->img, pixel, \
-		nbr_line * HEIGHT);
-		mlx_destroy_image(v->mlx, v->img);
+			img = v->imgs.sky_tr;
+		mlx_put_image_to_window(v->mlx, v->win, img, \
+			pixel, nbr_line * HEIGHT);
 		str++;
 		pixel += WIDTH;
 	}
@@ -41,6 +42,7 @@ static void	draw_lines_sky(t_vars *v, char *str, int nbr_line, int pixel)
 static void	draw_lines_map(t_vars *v, char *str, int nbr_line, int pixel)
 {
 	int		odd;
+	void	*img;
 
 	odd = nbr_line;
 	while (*str != '\0' && ++odd)
@@ -48,14 +50,13 @@ static void	draw_lines_map(t_vars *v, char *str, int nbr_line, int pixel)
 		if (*str != '1' || !FLY)
 		{
 			if (*str == '1')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, WALL);
+				img = v->imgs.wall;
 			else if (odd % 2)
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, ODD);
+				img = v->imgs.odd_terrain;
 			else
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, PAIR);
-			mlx_put_image_to_window(v->mlx, v->win, v->img, pixel * WIDTH, \
-			nbr_line * HEIGHT);
-			mlx_destroy_image(v->mlx, v->img);
+				img = v->imgs.pair_terrain;
+			mlx_put_image_to_window(v->mlx, v->win, img, \
+				pixel * WIDTH, nbr_line * HEIGHT);
 		}
 		str++;
 		pixel++;
@@ -83,19 +84,13 @@ static char	*ft_strjoin_free_both(char *s1, char *s2)
 static void	print_moves_and_carrots(t_vars *vars)
 {
 	char	*str;
-	int		a;
 
-	a = 0;
-	vars->img = ft_mlx_xpm_file_to_image(vars->mlx, BLACK);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-	mlx_destroy_image(vars->mlx, vars->img);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->imgs.black, 0, 0);
 	str = ft_strjoin_free_both(ft_strdup("Moves: "), ft_itoa(vars->moves));
-	mlx_string_put(vars->mlx, vars->win, WIDTH / 2, 0, \
-	0x00FF0000, str);
+	mlx_string_put(vars->mlx, vars->win, WIDTH / 2, 0, RED_COLOR, str);
 	free(str);
 	str = ft_strjoin_free_both(ft_strdup("Carrots: "), ft_itoa(vars->carrots));
-	mlx_string_put(vars->mlx, vars->win, WIDTH / 2, HEIGHT / 2, \
-	0x00FF0000, str);
+	mlx_string_put(vars->mlx, vars->win, WIDTH / 2, HEIGHT / 2, RED_COLOR, str);
 	free(str);
 	printf("\tmoves: %d\tcarrots: %d\n", vars->moves, vars->carrots);
 }

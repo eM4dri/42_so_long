@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:18:54 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/24 08:31:12 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:56:04 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,62 @@
 
 static void	draw_lines_enemies(t_vars *v, char *str, int nbr_line, int pixel)
 {
+	void	*img;
+
 	while (*str != '\0')
 	{
 		if (*str == 'X' || *str == 'x' || *str == 'H' || *str == 'h' \
 		|| *str == 'V' || *str == 'v')
 		{
 			if (*str == 'X')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, SPIKES_U);
+				img = v->imgs.spikes_up;
 			else if (*str == 'x')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, SPIKES_D);
+				img = v->imgs.spikes_down;
 			else if (*str == 'H')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, RAT_L);
+				img = v->imgs.rat_left;
 			else if (*str == 'h')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, RAT_R);
+				img = v->imgs.rat_right;
 			else if (*str == 'V')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, FOX_U);
+				img = v->imgs.fox_up;
 			else if (*str == 'v')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, FOX_D);
-			mlx_put_image_to_window(v->mlx, v->win, v->img, pixel * WIDTH, \
-			(nbr_line - !PERFORMANCE) * HEIGHT);
-			mlx_destroy_image(v->mlx, v->img);
+				img = v->imgs.fox_down;
+			mlx_put_image_to_window(v->mlx, v->win, img, pixel * WIDTH, \
+				(nbr_line - !PERFORMANCE) * HEIGHT);
 		}
 		str++;
 		pixel++;
 	}
 }
 
+static void	*get_img_object(t_vars *v, char *str)
+{
+	if (*str == 'K')
+		return (v->imgs.rabbit_ko);
+	else if (*str == 'C')
+		return (v->imgs.carrot);
+	else if (*str == 'E')
+		return (v->imgs.hole);
+	else if (v->lastkey == LEFT || v->lastkey == A_KEY)
+		return (v->imgs.rabbit_left);
+	else if (v->lastkey == RIGHT || v->lastkey == D_KEY)
+		return (v->imgs.rabbit_right);
+	else if (v->lastkey == UP || v->lastkey == W_KEY)
+		return (v->imgs.rabbit_up);
+	else
+		return (v->imgs.rabbit_down);
+}
+
 static void	draw_lines_objects(t_vars *v, char *str, int nbr_line, int pixel)
 {
+	void	*img;
+
 	while (*str != '\0')
 	{
 		if (*str == 'C' || *str == 'E' || *str == 'P' || *str == 'K')
 		{
-			if (*str == 'K')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, RABBIT_KO);
-			else if (*str == 'C')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, CARROT);
-			else if (*str == 'E')
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, HOLE);
-			else if (v->lastkey == LEFT || v->lastkey == A_KEY)
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, RABBIT_L);
-			else if (v->lastkey == RIGHT || v->lastkey == D_KEY)
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, RABBIT_R);
-			else if (v->lastkey == UP || v->lastkey == W_KEY)
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, RABBIT_U);
-			else
-				v->img = ft_mlx_xpm_file_to_image(v->mlx, RABBIT_D);
-			mlx_put_image_to_window(v->mlx, v->win, v->img, pixel * WIDTH, \
-			(nbr_line - (ft_strchr("CPK", *str) && !PERFORMANCE)) * HEIGHT);
-			mlx_destroy_image(v->mlx, v->img);
+			img = get_img_object(v, str);
+			mlx_put_image_to_window(v->mlx, v->win, img, pixel * WIDTH, \
+				(nbr_line - (ft_strchr("CPK", *str) && !PERFORMANCE)) * HEIGHT);
 		}
 		str++;
 		pixel++;
@@ -99,16 +106,3 @@ void	ft_draw(t_vars *vars, t_map_lines *map, \
 	}
 }
 
-/**
- * * In spite of being mandatory mlx_xpm_file_to_image don´t use height & width
- * * So this 'overrides' save handling that parameter
- * @param mlx
- * @param filename
-*/
-void	*ft_mlx_xpm_file_to_image(void *mlx, char *filename)
-{
-	int	a;
-
-	a = 0;
-	return (mlx_xpm_file_to_image(mlx, filename, &a, &a));
-}
