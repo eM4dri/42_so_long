@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/03 13:12:16 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/05 20:38:48 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 # include "options.h"
 # define FULL_ZEROS_STRING "00000000000000000000000000000000000000000000\
 000000000000000"
+#define TOTAL_IMAGES_LOADED 18
+#define TOTAL_TEXTURES_ENVIROMENT 7
+#define TOTAL_TEXTURES_PLAYER 5
+#define TOTAL_TEXTURES_ENEMY 2
+#define BACKGROUND_MOVE_FACTOR 3
+#define TOTAL_MAPS_LOADED 3
+#define WINDOW_TITLE "so_long"
 # if IMAGE_BIG==0
 #  define HEIGHT 25
 #  define WIDTH 50
@@ -42,5 +49,34 @@ enum e_keycodes{
 	RIGHT,
 	DOWN,
 	UP
+};
+
+enum e_player_imgs{
+	PLAYER_DOWN,
+	PLAYER_KO,
+	PLAYER_LEFT,
+	PLAYER_RIGHT,
+	PLAYER_UP
+};
+
+enum e_enemy_imgs{
+	FRAME_1,
+	FRAME_2
+};
+
+enum e_env_imgs{
+	CARROT,
+	HOLE,
+	ODD_TERRAIN,
+	PAIR_TERRAIN,
+	WALL,
+	BLACK,
+	SKY
+};
+
+enum e_maps{
+	INITIAL_MAP,
+	ITEMS_MAP,
+	ENEMIES_MAP
 };
 #endif

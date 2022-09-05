@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2021/10/03 19:58:28 by emadriga         ###   ########.fr        #
+#    Updated: 2022/09/05 22:59:06 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,21 @@
 NAME	= so_long
 
 # compiling flags
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -Ofast
+
+
+# Libraries
+LIBFT			=	src/libft/libft.a
+
+MINILIBX		=	src/mlx/libmlx42.a
+
+OS				=	$(shell uname -s)
+
+ifeq ($(OS), Darwin)
+	MINILIBX_FLAGS	=	-I include -lglfw -L "/Users/${USER}/.brew/opt/glfw/lib/"
+else
+	MINILIBX_FLAGS	=	-I include -ldl -lglfw
+endif
 
 # Header files
 INCLUDES_FILES =	constants.h	\
@@ -29,34 +43,42 @@ SRC_FILES	= 	sl_hooks.c				\
 				sl_map_drawer.c			\
 				sl_map_drawer2.c		\
 				sl_map_move.c			\
+				sl_map_replace.c		\
 				sl_map_move_enemies.c	\
 				sl_map_parser.c			\
 				sl_utils.c				\
+				load_images.c			\
+				errors.c				\
 				sl_utils2.c
-OBJ_FILES	= $(SRC_FILES:.c=.o) 
+OBJ_FILES	= $(SRC_FILES:.c=.o)
 
 # Folders
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 INC_DIR = ./includes/
-LIBFT_DIR = ./libft/
-MINLBX_DIR = ./minilibx/
+LIBFT_DIR = ./src/libft/
+MINLBX_DIR = ./src/mlx/
 
 # Paths
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 INCLUDES = $(addprefix $(INC_DIR), $(INCLUDES_FILES))
-LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
-MINLBX  = $(addprefix $(MINLBX_DIR), libmlx.a)
+LIBFT	=	src/libft/libft.a
+MINLBX	=	src/mlx/libmlx42.a
+
+# LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
+# MINLBX  = $(addprefix $(MINLBX_DIR), libmlx42.a)
 
 # Libft and Minilibx linkers
-LNK  = -L $(LIBFT_DIR) -lft -L $(MINLBX_DIR) \
-	   -lmlx -framework OpenGL -framework AppKit
+LNK  =  $(LIBFT) $(MINLBX) $(MINILIBX_FLAGS)
+# LNK  = -L $(LIBFT_DIR) -lft -L $(MINLBX_DIR) \
+# 	$(MINILIBX_FLAGS)
+	#    -lmlx -framework OpenGL -framework AppKit
 
 # all rule
 all: obj $(LIBFT) $(MINLBX) $(NAME)
 
-obj: 
+obj:
 	@mkdir -p $(OBJ_DIR)
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c $(INCLUDES)
 	@gcc $(FLAGS) -I $(MINLBX_DIR) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
@@ -76,19 +98,19 @@ mynorm:
 
 bonus:	all
 
-# clean rule			
+# clean rule
 clean:
-			@rm -Rf $(OBJ_DIR) 
+			@rm -Rf $(OBJ_DIR)
 			@make -C $(LIBFT_DIR) clean
 			@make -C $(MINLBX_DIR) clean
 			@echo "[INFO] Objects removed!"
-			
+
 # fclean rule
 fclean:		clean
 			@rm -f $(NAME)
 			@make -C $(LIBFT_DIR) fclean
 			@echo "$(NAME) removed!"
-			
+
 # re rule
 re:			fclean all bonus
 

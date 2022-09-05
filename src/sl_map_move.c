@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:21:59 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/03 09:35:17 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/05 23:02:58 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,31 +64,6 @@ void	try_move_left(t_map_lines **map, int items)
 		aux = aux->next;
 	}
 	printf("LEFT");
-}
-
-/**
- * * Replace all characters 'c' with str in map
- * @param map	map
- * @param c		char to replace 
- * @param str	str to put instead
-*/
-void	ft_replace_all(t_map_lines **map, char c, char *str)
-{
-	t_map_lines	*aux;
-	int			i;
-
-	aux = *map;
-	while (aux != NULL)
-	{
-		i = 0;
-		while (aux->str[i] != '\0')
-		{
-			if (aux->str[i] == c)
-				aux->str = ft_replace(aux->str, str, i);
-			i++;
-		}
-		aux = aux->next;
-	}
 }
 
 /**

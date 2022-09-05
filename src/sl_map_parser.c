@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:21:43 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/03 19:54:06 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/05 23:40:31 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ static int	check_valid_map(t_map_lines *map)
 	return (o.item && o.exit && o.start);
 }
 
-void	pre_map_exit(t_map_lines *map, const char *str, int free_needed)
-{
-	if (free_needed)
-		ft_freemap(map);
-	printf(ERROR, str);
-	exit(0);
-}
+// void	pre_map_exit(t_map_lines *map, const char *str, int free_needed)
+// {
+// 	if (free_needed)
+// 		ft_freemap(map);
+// 	printf(ERROR, str);
+// 	exit(0);
+// }
 
 void	parse_map(char *file, t_map_lines **map)
 {
