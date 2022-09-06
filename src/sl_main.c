@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:29:57 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/05 23:11:53 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:19:31 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ static void	load_maps(t_game *game, t_map_lines *loaded_map)
 {
 	game->maps[ITEMS_MAP] = NULL;
 	game->maps[ENEMIES_MAP] = NULL;
+	printf("HELLO\t%d\n\n", game->map_height);
+	game->items_maps = ft_copymap_matrix(loaded_map, game->map_height);
+	game->enemies_maps = ft_copymap_matrix(loaded_map, game->map_height);
+	ft_printmatrix(game->items_maps);
+	printf("HELLO\n\n");
+	ft_replace_all_matrix(game->items_maps, 'E', 'e');
+	ft_replace_all_matrix(game->items_maps, '1', '5');
+	ft_printmatrix(game->items_maps);
+	printf("HELLO\n\n");
 	ft_copymap(&game->maps[ITEMS_MAP], loaded_map);
 	ft_replace_all(&game->maps[ITEMS_MAP], 'X', "0");
 	ft_replace_all(&game->maps[ITEMS_MAP], 'H', "0");
@@ -73,7 +82,7 @@ static void	init_vars(t_game *g)
 	g->map_height = get_map_height(g->maps[INITIAL_MAP]);
 	g->win_width = g->map_width * WIDTH;
 	g->win_height = (g->map_height) * HEIGHT;
-	g->mlx = mlx_init(g->win_width-WIDTH, g->win_height, WINDOW_TITLE, false);
+	g->mlx = mlx_init(g->win_width - WIDTH, g->win_height, WINDOW_TITLE, false);
 	g->enemy_clock = CLOCKENEMIES;
 	g->enemy_clock_watch = CLOCKWATCH;
 	// game->win = mlx_new_window(game->mlx, game->win_width, game->win_height, window_tittle);
@@ -86,7 +95,6 @@ static void	init_vars(t_game *g)
 // 	system("leaks parse");
 // }
 // #define LEAKS  0
-
 
 /**
  * @brief Checks either one of the given keys is being pressed.

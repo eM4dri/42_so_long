@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:30:12 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/05 22:43:44 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/06 16:15:53 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	destroy_images(t_game *g)
 {
 	int	i;
 
-	if(!g->envimgs)
-		return ;
+	// if(!g->envimgs)
+	// 	return ;
 	i = 0;
 	while(i < TOTAL_TEXTURES_ENVIROMENT)
 		mlx_delete_image(g->mlx, g->envimgs[i++]);

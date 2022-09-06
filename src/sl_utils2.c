@@ -6,11 +6,46 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:20:46 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/03 09:35:21 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:16:50 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	*freematrix(char **matrix, size_t i)
+{
+	while (i--)
+		free(matrix[i]);
+	free(matrix);
+	return (NULL);
+}
+
+/**
+ * * Copy a map src into map dts
+ * @param src		map src
+ * @param height	map height
+*/
+char	**ft_copymap_matrix(t_map_lines *src, int height)
+{
+	char	**map;
+	int		i;
+
+	i = 0;
+	map = NULL;
+	map = malloc((height + 1) * sizeof(char *));
+	if (!map)
+		return (NULL);
+	while (src != NULL)
+	{
+		map[i] = ft_strdup(src->str);
+		if (!map[i])
+			return (freematrix(map, i));
+		src = src->next;
+		i++;
+	}
+	map[i] = NULL;
+	return (map);
+}
 
 /**
  * * Copy a map src into map dts

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:18:50 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/05 21:13:23 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/06 16:21:08 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,13 @@ static void	draw_lines_map(t_game *g, char *str, int nbr_line, double pixel)
 	{
 		if (*str != '1' || !FLY)
 		{
-			 if (odd % 2)
+			if (odd % 2)
 				img = g->envimgs[ODD_TERRAIN];
 			else
 				img = g->envimgs[PAIR_TERRAIN];
 			mlx_image_to_window(g->mlx, img, pixel * WIDTH, nbr_line * HEIGHT);
+			mlx_set_instance_depth(img->instances, 1);
+			
 			// mlx_put_image_to_window(g->mlx, g->win, img, pixel * WIDTH, nbr_line * HEIGHT);
 		}
 		str++;

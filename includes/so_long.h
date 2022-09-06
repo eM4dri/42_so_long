@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/05 23:21:30 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/06 18:26:54 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct s_game{
 	// void		*win;
 	mlx_image_t		*envimgs[TOTAL_TEXTURES_ENVIROMENT];
 	t_map_lines		*maps[TOTAL_MAPS_LOADED];
+	char		**items_maps;
+	char		**enemies_maps;
 	mlx_texture_t	*player_textures[TOTAL_TEXTURES_PLAYER];
 	t_player		*players;
 	// mlx_texture_t	*textures[TOTAL_TEXTURES_ENEMY];
@@ -123,10 +125,15 @@ void	draw_lines_objects_enemies(t_game *v, char *str, int nbr_line, \
 void	ft_draw(t_game *game, t_map_lines *map, \
 				void (*func)(t_game *, char *, int, double));
 int		close_window( t_game *game);
-void		key_hook(mlx_key_data_t keycode, void *game);
+void	key_hook(mlx_key_data_t keycode, void *game);
 void	draw_map_loop(t_game *game);
 void	load_images(t_game *game);
 void	log_error(char *str_error);
 
 void	log_error_free(char *malloc_str_error);
+char	**ft_copymap_matrix(t_map_lines *src, int height);
+void	*freematrix(char **matrix, size_t i);
+void	ft_printmatrix(char	**map);
+void	ft_replace_all_matrix(char **map, char oldchar, char newchar);
+void	ft_replace_all_matrix_except(char **map, char oldchar, char newchar, int id);
 #endif

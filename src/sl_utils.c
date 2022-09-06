@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:20:25 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/03 09:35:20 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:11:37 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ void	ft_printmap(t_map_lines *map)
 		printf("%s\n", map->str);
 		map = map->next;
 	}
+}
+
+/**
+ * * Print map
+ * @param map	map
+*/
+void	ft_printmatrix(char	**map)
+{
+	while (*map != NULL)
+		printf("%s\n", *map++);
 }
 
 /**
