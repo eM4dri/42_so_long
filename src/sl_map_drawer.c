@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:18:50 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/06 16:21:08 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:43:08 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	draw_lines_map(t_game *g, char *str, int nbr_line, double pixel)
 				img = g->envimgs[PAIR_TERRAIN];
 			mlx_image_to_window(g->mlx, img, pixel * WIDTH, nbr_line * HEIGHT);
 			mlx_set_instance_depth(img->instances, 1);
-			
+
 			// mlx_put_image_to_window(g->mlx, g->win, img, pixel * WIDTH, nbr_line * HEIGHT);
 		}
 		str++;
@@ -105,14 +105,14 @@ void	draw_map(t_game *g, int is_key_input)
 	{
 		if (DELAY_MULTIPLIER)
 			g->clock = CLOCKTICKS * DELAY_MULTIPLIER;
-		carrots = count_colectables(g->maps[ITEMS_MAP], 'C');
+		carrots = count_colectables(g->items_maps, 'C');
 		if (g->carrots != carrots)
 		{
-			g->carrots = count_colectables(g->maps[ITEMS_MAP], 'C');
+			g->carrots = carrots;
 			clean_carrots(&g->maps[ENEMIES_MAP], g->maps[ITEMS_MAP]);
 		}
 		// print_moves_and_carrots(g);
-		g->rabbits = count_colectables(g->maps[ITEMS_MAP], 'P');
+		g->rabbits = count_colectables(g->items_maps, 'P');
 	}
 	if (!is_key_input || !DELAY_MULTIPLIER)
 		g->save += PIXFOWARD;

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:29:57 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/06 18:19:31 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:44:34 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,24 @@ void	pre_map_exit(t_map_lines *map, const char *str, int free_needed)
 
 static void	load_maps(t_game *game, t_map_lines *loaded_map)
 {
-	game->maps[ITEMS_MAP] = NULL;
-	game->maps[ENEMIES_MAP] = NULL;
-	printf("HELLO\t%d\n\n", game->map_height);
+	game->items_maps = NULL;
+	game->enemies_maps = NULL;
 	game->items_maps = ft_copymap_matrix(loaded_map, game->map_height);
-	game->enemies_maps = ft_copymap_matrix(loaded_map, game->map_height);
-	ft_printmatrix(game->items_maps);
-	printf("HELLO\n\n");
-	ft_replace_all_matrix(game->items_maps, 'E', 'e');
-	ft_replace_all_matrix(game->items_maps, '1', '5');
-	ft_printmatrix(game->items_maps);
-	printf("HELLO\n\n");
-	ft_copymap(&game->maps[ITEMS_MAP], loaded_map);
-	ft_replace_all(&game->maps[ITEMS_MAP], 'X', "0");
-	ft_replace_all(&game->maps[ITEMS_MAP], 'H', "0");
-	ft_replace_all(&game->maps[ITEMS_MAP], 'V', "0");
-	ft_replace_all(&game->maps[ITEMS_MAP], 'x', "0");
-	ft_replace_all(&game->maps[ITEMS_MAP], 'h', "0");
-	ft_replace_all(&game->maps[ITEMS_MAP], 'v', "0");
-	ft_copymap(&game->maps[ENEMIES_MAP], loaded_map);
-	ft_replace_all(&game->maps[ENEMIES_MAP], 'P', "0");
+	if (!game->items_maps)
+		exit(1);
+	if (ENEMIES)
+	{
+		ft_replace_all_matrix(game->items_maps, 'X', '0');
+		ft_replace_all_matrix(game->items_maps, 'H', '0');
+		ft_replace_all_matrix(game->items_maps, 'V', '0');
+		ft_replace_all_matrix(game->items_maps, 'x', '0');
+		ft_replace_all_matrix(game->items_maps, 'h', '0');
+		ft_replace_all_matrix(game->items_maps, 'v', '0');
+		game->enemies_maps = ft_copymap_matrix(loaded_map, game->map_height);
+		if (!game->items_maps)
+			exit(1);
+		ft_replace_all_matrix(game->enemies_maps, 'P', '0');
+	}
 }
 
 static void	init_vars(t_game *g)
@@ -76,17 +74,17 @@ static void	init_vars(t_game *g)
 	g->save = 0;
 	g->drawn = 0;
 	g->clock = CLOCKTICKS;
-	g->rabbits = count_colectables(g->maps[INITIAL_MAP], 'P');
+	load_maps(g, g->loadedMap);
+	g->rabbits = count_colectables(g->items_maps, 'P');
 	g->players = (t_player *) malloc(g->rabbits * sizeof(t_player));
-	g->map_width = ft_strlen(g->maps[INITIAL_MAP]->str);
-	g->map_height = get_map_height(g->maps[INITIAL_MAP]);
+	g->map_width = ft_strlen(g->loadedMap->str);
+	g->map_height = get_map_height(g->loadedMap);
 	g->win_width = g->map_width * WIDTH;
 	g->win_height = (g->map_height) * HEIGHT;
 	g->mlx = mlx_init(g->win_width - WIDTH, g->win_height, WINDOW_TITLE, false);
 	g->enemy_clock = CLOCKENEMIES;
 	g->enemy_clock_watch = CLOCKWATCH;
 	// game->win = mlx_new_window(game->mlx, game->win_width, game->win_height, window_tittle);
-	load_maps(g, g->maps[INITIAL_MAP]);
 	load_images(g);
 }
 
@@ -161,13 +159,13 @@ int	main(int argc, char **argv)
 
 	// if (LEAKS)
 	// 	atexit(ft_leaks);
-	game.maps[INITIAL_MAP] = NULL;
+	game.loadedMap = NULL;
 	game.tick = 2 * WIDTH * BACKGROUND_MOVE_FACTOR;
 	if (argc != 2)
-		pre_map_exit(game.maps[INITIAL_MAP], strerror(EINVAL), 0);
+		pre_map_exit(game.loadedMap, strerror(EINVAL), 0);
 	if (ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], ".ber", 4))
-		pre_map_exit(game.maps[INITIAL_MAP], ERROR_EXTENSIONMAP, 0);
-	parse_map(argv[1], &game.maps[INITIAL_MAP]);
+		pre_map_exit(game.loadedMap, ERROR_EXTENSIONMAP, 0);
+	parse_map(argv[1], &game.loadedMap);
 	init_vars(&game);
 	// init_maps(&game);
 	draw_map(&game, 0);

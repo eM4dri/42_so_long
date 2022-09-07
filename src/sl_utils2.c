@@ -6,13 +6,13 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:20:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/06 17:16:50 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:45:14 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	*freematrix(char **matrix, size_t i)
+static void	*freematrix(char **matrix, size_t i)
 {
 	while (i--)
 		free(matrix[i]);
@@ -148,7 +148,7 @@ void	rabbit_survive(t_map_lines **imap, t_map_lines *emap)
  * @param emap	enemies map
  * @param imap	items map
 */
-void	clean_carrots(t_map_lines **emap, t_map_lines *imap)
+void	clean_carrots(char **emap, char *imap)
 {
 	t_map_lines	*aux;
 	int			i;

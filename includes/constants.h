@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/05 20:38:48 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:09:28 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #define TOTAL_TEXTURES_PLAYER 5
 #define TOTAL_TEXTURES_ENEMY 2
 #define BACKGROUND_MOVE_FACTOR 3
-#define TOTAL_MAPS_LOADED 3
 #define WINDOW_TITLE "so_long"
 # if IMAGE_BIG==0
 #  define HEIGHT 25
@@ -74,9 +73,4 @@ enum e_env_imgs{
 	SKY
 };
 
-enum e_maps{
-	INITIAL_MAP,
-	ITEMS_MAP,
-	ENEMIES_MAP
-};
 #endif

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/06 18:26:54 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:40:13 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,31 +72,31 @@ typedef struct s_enemy
 // }t_imgs;
 
 typedef struct s_game{
-	void		*mlx;
-	// void		*win;
+	void			*mlx;
+	// void			*win;
 	mlx_image_t		*envimgs[TOTAL_TEXTURES_ENVIROMENT];
-	t_map_lines		*maps[TOTAL_MAPS_LOADED];
-	char		**items_maps;
-	char		**enemies_maps;
+	t_map_lines		*loadedMap;
+	char			**items_maps;
+	char			**enemies_maps;
 	mlx_texture_t	*player_textures[TOTAL_TEXTURES_PLAYER];
 	t_player		*players;
 	// mlx_texture_t	*textures[TOTAL_TEXTURES_ENEMY];
 	// t_map_lines	*imap;
 	// t_map_lines	*emap;
-	int			lastkey;
-	int			moves;
-	int			carrots;
-	int			rabbits;
-	int			save;
-	int			clock;
-	int			enemy_clock_watch;
-	int			enemy_clock;
-	int			drawn;
-	int			map_width;
-	int			map_height;
-	int			win_width;
-	int			win_height;
-	int			tick;
+	int				lastkey;
+	int				moves;
+	int				carrots;
+	int				rabbits;
+	int				save;
+	int				clock;
+	int				enemy_clock_watch;
+	int				enemy_clock;
+	int				drawn;
+	int				map_width;
+	int				map_height;
+	int				win_width;
+	int				win_height;
+	int				tick;
 }t_game;
 
 void	parse_map(char *file, t_map_lines **map);
@@ -108,7 +108,7 @@ void	try_move_right(t_map_lines **map, int items);
 void	try_move_up(t_map_lines **map, int items);
 void	ft_printmap(t_map_lines *map);
 void	draw_map(t_game *game, int is_key_input);
-int		count_colectables(t_map_lines *map, char c);
+int		count_colectables(char **map, char c);
 int		get_map_height(t_map_lines *map);
 void	pre_map_exit(t_map_lines *map, const char *str, int free_needed);
 void	ft_lstadd_back_line(t_map_lines **map, char *line);
@@ -132,8 +132,9 @@ void	log_error(char *str_error);
 
 void	log_error_free(char *malloc_str_error);
 char	**ft_copymap_matrix(t_map_lines *src, int height);
-void	*freematrix(char **matrix, size_t i);
-void	ft_printmatrix(char	**map);
 void	ft_replace_all_matrix(char **map, char oldchar, char newchar);
 void	ft_replace_all_matrix_except(char **map, char oldchar, char newchar, int id);
+void	array_str_free(char ***list);
+void	array_str_print(char **array);
+int		array_str_get_size(char **array);
 #endif

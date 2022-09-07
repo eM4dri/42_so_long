@@ -6,7 +6,7 @@
 #    By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 19:44:26 by emadriga          #+#    #+#              #
-#    Updated: 2022/09/05 22:59:06 by emadriga         ###   ########.fr        #
+#    Updated: 2022/09/07 11:20:13 by emadriga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC_FILES	= 	sl_hooks.c				\
 				sl_utils.c				\
 				load_images.c			\
 				errors.c				\
+				array_str_handler.c		\
 				sl_utils2.c
 OBJ_FILES	= $(SRC_FILES:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:21:59 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/06 18:26:32 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/07 10:57:15 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,7 @@ void	ft_replace_all(t_map_lines **map, char c, char *str)
 		while (aux->str[i] != '\0')
 		{
 			if (aux->str[i] == c)
-			{
-				if (id != 0)
-					aux->str = ft_replace(aux->str, str, i);
-				id--;
-			}
+				aux->str = ft_replace(aux->str, str, i);
 			i++;
 		}
 		aux = aux->next;

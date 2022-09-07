@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:30:12 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/06 16:15:53 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:25:29 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void	destroy_images(t_game *g)
 
 int	close_window(t_game *game)
 {
-	ft_freemap(game->maps[INITIAL_MAP]);
-	ft_freemap(game->maps[ITEMS_MAP]);
-	ft_freemap(game->maps[ENEMIES_MAP]);
+	ft_freemap(game->loadedMap);
+	array_str_free(&game->items_maps);
+	array_str_free(&game->enemies_maps);
 	destroy_images(game);
 	// mlx_close_window(game->mlx);
 	mlx_terminate(game->mlx);
@@ -119,8 +119,8 @@ void	draw_map_loop(t_game *g)
 {
 	if (!g->enemy_clock)
 	{
-		animate_enemies(&g->maps[ENEMIES_MAP], &g->enemy_clock_watch);
-		rabbit_survive(&g->maps[ITEMS_MAP], g->maps[ENEMIES_MAP]);
+		// animate_enemies(&g->maps[ENEMIES_MAP], &g->enemy_clock_watch);
+		// rabbit_survive(&g->maps[ITEMS_MAP], g->maps[ENEMIES_MAP]);
 		g->enemy_clock = CLOCKENEMIES;
 	}
 	g->enemy_clock--;

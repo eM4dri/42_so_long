@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:20:25 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/06 17:11:37 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:39:39 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * * Replace a set of characters on a string starting at some index
- * @param str		string to modify 
+ * @param str		string to modify
  * @param charset	set of characters to replace
  * @param index		starting point of replacing
 */
@@ -71,16 +71,6 @@ void	ft_printmap(t_map_lines *map)
 }
 
 /**
- * * Print map
- * @param map	map
-*/
-void	ft_printmatrix(char	**map)
-{
-	while (*map != NULL)
-		printf("%s\n", *map++);
-}
-
-/**
  * * get_map_height
  * @param map	map
 */
@@ -101,7 +91,7 @@ int	get_map_height(t_map_lines *map)
  * * count_colectables
  * @param map	map
 */
-int	count_colectables(t_map_lines *map, char c)
+int	count_colectables(char **map, char c)
 {
 	int		total;
 	char	*str;
@@ -109,13 +99,13 @@ int	count_colectables(t_map_lines *map, char c)
 	total = 0;
 	while (map != NULL)
 	{
-		str = map->str;
+		str =	*map;
 		while (*str != '\0')
 		{
 			if (*str++ == c)
 				total++;
 		}
-		map = map->next;
+		map++;
 	}
 	return (total);
 }
