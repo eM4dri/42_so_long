@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:36 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/07 11:40:13 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:29:58 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_map_lines
 typedef struct s_player
 {
 	mlx_image_t		*img;
-	t_map_lines		*map;
+	char			**map;
 }t_player;
 
 typedef struct s_enemy
@@ -79,7 +79,7 @@ typedef struct s_game{
 	char			**items_maps;
 	char			**enemies_maps;
 	mlx_texture_t	*player_textures[TOTAL_TEXTURES_PLAYER];
-	t_player		*players;
+	t_player		**players;
 	// mlx_texture_t	*textures[TOTAL_TEXTURES_ENEMY];
 	// t_map_lines	*imap;
 	// t_map_lines	*emap;
@@ -119,15 +119,14 @@ void	ft_emptymap(t_map_lines **map, int width, int height);
 void	ft_comparemaps(t_map_lines **dts, t_map_lines *m1, t_map_lines *m2);
 void	animate_enemies(t_map_lines **map, int *clock);
 void	rabbit_survive(t_map_lines **imap, t_map_lines *emap);
-void	clean_carrots(t_map_lines **emap, t_map_lines *imap);
+void	clean_carrots(char **emap, char **imap);
 void	draw_lines_objects_enemies(t_game *v, char *str, int nbr_line, \
 				double pixel);
-void	ft_draw(t_game *game, t_map_lines *map, \
-				void (*func)(t_game *, char *, int, double));
+void	ft_draw(t_game *game, void (*func)(t_game *, char *, int, double));
 int		close_window( t_game *game);
 void	key_hook(mlx_key_data_t keycode, void *game);
 void	draw_map_loop(t_game *game);
-void	load_images(t_game *game);
+void	load_images(t_game *g, t_map_lines *loaded_map);
 void	log_error(char *str_error);
 
 void	log_error_free(char *malloc_str_error);

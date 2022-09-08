@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:20:46 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/07 11:45:14 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:12:09 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,22 +148,21 @@ void	rabbit_survive(t_map_lines **imap, t_map_lines *emap)
  * @param emap	enemies map
  * @param imap	items map
 */
-void	clean_carrots(char **emap, char *imap)
+void	clean_carrots(char **emap, char **imap)
 {
-	t_map_lines	*aux;
-	int			i;
+	int	row;
+	int	i;
 
-	aux = *emap;
-	while (imap != NULL || aux != NULL)
+	row = 0;
+	while (imap[row] != NULL || emap[row] != NULL)
 	{
 		i = 0;
-		while (imap->str[i] != '\0' || aux->str[i] != '\0')
+		while (imap[row][i] != '\0' || emap[row][i] != '\0')
 		{
-			if (imap->str[i] != 'C' && aux->str[i] == 'C')
-				aux->str = ft_replace(aux->str, "0", i);
+			if (imap[row][i] != 'C' && emap[row][i] == 'C')
+				emap[row][i] = '0';
 			i++;
 		}
-		aux = aux->next;
-		imap = imap->next;
+		row++;
 	}
 }

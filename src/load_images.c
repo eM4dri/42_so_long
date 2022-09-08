@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:29:57 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/05 23:41:35 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:35:42 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ static mlx_image_t *load_png_area(t_game *game, char *path, uint32_t width, uint
 	return (img);
 }
 
-void	load_images(t_game *g)
+void	load_images(t_game *g, t_map_lines *loaded_map)
 {
 	int			i;
-	t_player	*player;
+	// t_player	*player;
 
 	i = -1;
 	g->envimgs[CARROT] = load_png(g, IMG_CARROT);
@@ -78,13 +78,18 @@ void	load_images(t_game *g)
 	g->player_textures[PLAYER_UP] =  load_texture(IMG_RABBIT_U);
 	while (++i < g->rabbits)
 	{
-		player = &g->players[i];
-		player->img =  mlx_texture_to_image(g->mlx, g->player_textures[PLAYER_DOWN]);
+		// player = &g->players[i];
+		g->players[i] = NULL;
+		g->players[i] = (t_player *)malloc(sizeof(t_player));
+		g->players[i]->img = \
+			mlx_texture_to_image(g->mlx, g->player_textures[PLAYER_DOWN]);
 		// ft_printmap(g->maps[ITEMS_MAP]);
-		player->map = NULL;
-		ft_copymap(&player->map, g->maps[ITEMS_MAP]);
-		ft_replace_all_except(&player->map, 'P', "p", i);
-		ft_printmap(player->map);
+		g->players[i]->map = NULL;
+		g->players[i]->map = ft_copymap_matrix(loaded_map, g->map_height);
+		// ft_copymap(&player->map, g->maps[ITEMS_MAP]);
+		// ft_replace_all_except(&player->map, 'P', "p", i);
+		ft_replace_all_matrix_except(g->players[i]->map, 'P', 'p', i);
+		array_str_print(g->players[i]->map);
 	}
 	// game->imgs[RABBIT_D] = load_png(game, IMG_RABBIT_D);
 	// game->imgs[RABBIT_KO] = load_png(game, IMG_RABBIT_KO);

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:30:12 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/07 11:25:29 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:37:09 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	close_window(t_game *game)
 void	key_hook(mlx_key_data_t keydata, void	*game)
 {
 	t_game	*g;
-	int	i;
+	int		i;
 
 	g = (t_game *)game;
 	i = -1;
@@ -96,16 +96,16 @@ void	key_hook(mlx_key_data_t keydata, void	*game)
 		while (++i < g->rabbits)
 		{
 			if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
-				mlx_draw_texture(g->players[i].img, g->player_textures[PLAYER_UP], 0, 0);
+				mlx_draw_texture(g->players[i]->img, g->player_textures[PLAYER_UP], 0, 0);
 				// try_move_down(game->maps[ITEMS_MAP], game->carrots);
 			else if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
-				mlx_draw_texture(g->players[i].img, g->player_textures[PLAYER_DOWN], 0, 0);
+				mlx_draw_texture(g->players[i]->img, g->player_textures[PLAYER_DOWN], 0, 0);
 				// try_move_left(game->maps[ITEMS_MAP], game->carrots);
 			else if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
-				mlx_draw_texture(g->players[i].img, g->player_textures[PLAYER_LEFT], 0, 0);
+				mlx_draw_texture(g->players[i]->img, g->player_textures[PLAYER_LEFT], 0, 0);
 				// try_move_right(game->maps[ITEMS_MAP], game->carrots);
 			else if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
-				mlx_draw_texture(g->players[i].img, g->player_textures[PLAYER_RIGHT], 0, 0);
+				mlx_draw_texture(g->players[i]->img, g->player_textures[PLAYER_RIGHT], 0, 0);
 				// try_move_up(game->maps[ITEMS_MAP], game->carrots);
 		}
 

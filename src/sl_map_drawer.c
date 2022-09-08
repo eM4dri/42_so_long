@@ -6,40 +6,12 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:18:50 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/07 11:43:08 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:26:16 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #define RED_COLOR 0x00FF0000
-
-// static void	draw_lines_sky(t_game *g, char *str, int nbr_line, int pixel)
-// {
-// 	// int		odd;
-// 	// size_t	len;
-// 	void	*img;
-
-// 	(void)str;
-// 	// odd = nbr_line;
-// 	// pixel = g->save % (2 * WIDTH) - 2 * WIDTH;
-// 	// len = ft_strlen(str) + 2;
-// 	// while (len-- && ++odd)
-// 	// {
-// 		img = g->envimgs[SKY];
-// 		// if (odd % 2 && nbr_line % 2)
-// 		// 	img = g->imgs[SKY_BR];
-// 		// else if (nbr_line % 2)
-// 		// 	img = g->imgs[SKY_BL];
-// 		// else if (odd % 2)
-// 		// 	img = g->imgs[SKY_TL];
-// 		// else
-// 		// 	img = g->imgs[SKY_TR];
-// 		mlx_image_to_window(g->mlx, img, -g->map_width, nbr_line * HEIGHT);
-// 		// mlx_put_image_to_window(g->mlx, g->win, img, pixel, nbr_line * HEIGHT);
-// 		// str++;
-// 		// pixel += WIDTH;
-// 	// }
-// }
 
 static void	draw_lines_map(t_game *g, char *str, int nbr_line, double pixel)
 {
@@ -57,8 +29,7 @@ static void	draw_lines_map(t_game *g, char *str, int nbr_line, double pixel)
 				img = g->envimgs[PAIR_TERRAIN];
 			mlx_image_to_window(g->mlx, img, pixel * WIDTH, nbr_line * HEIGHT);
 			mlx_set_instance_depth(img->instances, 1);
-
-			// mlx_put_image_to_window(g->mlx, g->win, img, pixel * WIDTH, nbr_line * HEIGHT);
+			printf("%d\t",img->instances->z);
 		}
 		str++;
 		pixel++;
@@ -109,7 +80,7 @@ void	draw_map(t_game *g, int is_key_input)
 		if (g->carrots != carrots)
 		{
 			g->carrots = carrots;
-			clean_carrots(&g->maps[ENEMIES_MAP], g->maps[ITEMS_MAP]);
+			clean_carrots(g->enemies_maps, g->items_maps);
 		}
 		// print_moves_and_carrots(g);
 		g->rabbits = count_colectables(g->items_maps, 'P');
@@ -118,9 +89,9 @@ void	draw_map(t_game *g, int is_key_input)
 		g->save += PIXFOWARD;
 	if ((FLY && !PERFORMANCE) || (PERFORMANCE && !g->drawn))
 		mlx_image_to_window(g->mlx,  g->envimgs[SKY],- 2*WIDTH, 0);
-		// ft_draw(g, g->maps[ITEMS_MAP], draw_lines_sky);
-	ft_draw(g, g->maps[ITEMS_MAP], draw_lines_map);
-	ft_draw(g, g->maps[ITEMS_MAP], draw_lines_objects_enemies);
+		// ft_draw(g, draw_lines_sky);
+	ft_draw(g, draw_lines_map);
+	ft_draw(g, draw_lines_objects_enemies);
 	printf("sky %d\tterrain1 %d\tterrain2 %d\n", g->envimgs[SKY]->instances->z, \
 	g->envimgs[PAIR_TERRAIN]->instances->z, g->envimgs[ODD_TERRAIN]->instances->z);
 	printf("count1 %d\tcount2 %d\n",g->envimgs[PAIR_TERRAIN]->count, g->envimgs[ODD_TERRAIN]->count);

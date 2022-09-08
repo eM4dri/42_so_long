@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:20:25 by emadriga          #+#    #+#             */
-/*   Updated: 2022/09/07 11:39:39 by emadriga         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:25:39 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,18 @@ int	count_colectables(char **map, char c)
 	char	*str;
 
 	total = 0;
-	while (map != NULL)
-	{
-		str =	*map;
-		while (*str != '\0')
+	if (map != NULL)
+	{	
+		while (*map != NULL)
 		{
-			if (*str++ == c)
-				total++;
+			str = *map;
+			while (*str != '\0')
+			{
+				if (*str++ == c)
+					total++;
+			}
+			map++;
 		}
-		map++;
 	}
 	return (total);
 }
