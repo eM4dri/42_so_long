@@ -14,7 +14,7 @@
 NAME	= so_long
 
 # compiling flags
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -fsanitize=address
 
 # Header files
 INCLUDES_FILES =	constants.h	\

@@ -84,6 +84,7 @@ typedef struct s_vars{
 void	parse_map(char *file, t_map_lines **map);
 void	ft_freemap(t_map_lines *map);
 char	*ft_replace(char *str, char const *charset, size_t index);
+void 	ft_replace_this_charset(char **str, char const *charset);
 void	try_move_down(t_map_lines **map, int items);
 void	try_move_left(t_map_lines **map, int items);
 void	try_move_right(t_map_lines **map, int items);
@@ -94,7 +95,8 @@ int		count_colectables(t_map_lines *map, char c);
 int		get_map_height(t_map_lines *map);
 void	pre_map_exit(t_map_lines *map, const char *str, int free_needed);
 void	ft_lstadd_back_line(t_map_lines **map, char *line);
-void	ft_replace_all(t_map_lines **map, char c, char *str);
+
+void	ft_replace_all_chars(t_map_lines **map, char c1, char c2);
 void	ft_copymap(t_map_lines **dts, t_map_lines *src);
 void	ft_emptymap(t_map_lines **map, int width, int height);
 void	ft_comparemaps(t_map_lines **dts, t_map_lines *m1, t_map_lines *m2);

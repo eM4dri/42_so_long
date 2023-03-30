@@ -61,14 +61,14 @@ static void	init_maps(t_vars *v)
 	v->imap = NULL;
 	v->emap = NULL;
 	ft_copymap(&v->imap, v->map);
-	ft_replace_all(&v->imap, 'X', "0");
-	ft_replace_all(&v->imap, 'H', "0");
-	ft_replace_all(&v->imap, 'V', "0");
-	ft_replace_all(&v->imap, 'x', "0");
-	ft_replace_all(&v->imap, 'h', "0");
-	ft_replace_all(&v->imap, 'v', "0");
+	ft_replace_all_chars(&v->imap, 'X', '0');
+	ft_replace_all_chars(&v->imap, 'H', '0');
+	ft_replace_all_chars(&v->imap, 'V', '0');
+	ft_replace_all_chars(&v->imap, 'x', '0');
+	ft_replace_all_chars(&v->imap, 'h', '0');
+	ft_replace_all_chars(&v->imap, 'v', '0');
 	ft_copymap(&v->emap, v->map);
-	ft_replace_all(&v->emap, 'P', "0");
+	ft_replace_all_chars(&v->emap, 'P', '0');
 }
 
 void	ft_leaks(void)

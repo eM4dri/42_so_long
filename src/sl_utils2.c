@@ -99,7 +99,7 @@ void	rabbit_survive(t_map_lines **imap, t_map_lines *emap)
 				if (!KILL_ALL_RABBITS)
 					aux->str = ft_replace(aux->str, "K", i);
 				else
-					ft_replace_all(imap, 'P', "K");
+					ft_replace_all_chars(imap, 'P', 'K');
 			}
 			i++;
 		}

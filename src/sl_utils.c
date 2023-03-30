@@ -38,6 +38,26 @@ char	*ft_replace(char *str, char const *charset, size_t index)
 }
 
 /**
+ * * Replace a set of characters on a string starting at some index
+ * @param str		string to modify 
+ * @param charset	set of characters to replace
+ * @param index		starting point of replacing
+*/
+void ft_replace_this_charset(char **str, char const *charset)
+{
+	char 	*aux;
+	size_t	i;
+
+	aux = *str; 
+	i = 0;
+	while (charset[i])
+	{
+		aux[i] = charset[i];
+		i++;
+	}
+}
+
+/**
  * * Free map
  * @param map	map
 */

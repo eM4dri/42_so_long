@@ -19,19 +19,19 @@
 void	trap_animation(t_map_lines **map)
 {
 	t_map_lines	*aux;
-	int			i;
+	char		*str;
 
 	aux = *map;
 	while (aux != NULL)
 	{
-		i = 0;
-		while (aux->str[i + 1] != '\0')
+		str = &aux->str[1];
+		while (str[1] != '\0')
 		{
-			if (aux->str[i] == 'x')
-				aux->str = ft_replace(aux->str, "X", i);
-			else if (aux->str[i] == 'X')
-				aux->str = ft_replace(aux->str, "x", i);
-			i++;
+			if (*str == 'x')
+				*str = 'X';
+			else if (*str == 'X')
+				*str = 'x';
+			str++;
 		}
 		aux = aux->next;
 	}
@@ -44,19 +44,21 @@ void	trap_animation(t_map_lines **map)
 static void	enemy_horizontal_watch(t_map_lines **map)
 {
 	t_map_lines	*aux;
-	int			i;
+	char		*str;
 
 	aux = *map;
 	while (aux != NULL)
 	{
-		i = 0;
-		while (aux->str[i + 1] != '\0')
+		str = &aux->str[1];
+		while (str[1] != '\0')
 		{
-			if (aux->str[i] == 'H' && aux->str[i - 1] == '0')
-				aux->str = ft_replace(aux->str, "H0", i - 1);
-			if (aux->str[i + 1] == '0' && aux->str[i] == 'h')
-				aux->str = ft_replace(aux->str, "0h", i++);
-			i++;
+			if (*str == '0' && str[1] == 'H')
+				ft_replace_this_charset(&str, "H0");
+			 else if ( *str == 'h' && str[1] == '0')
+				ft_replace_this_charset(&str, "0h");
+			else 
+				str--;
+			str += 2;
 		}
 		aux = aux->next;
 	}
@@ -118,7 +120,7 @@ static void	enemy_vertical_watch_down(t_map_lines **map)
 		aux = aux->next;
 		next = next->next;
 	}
-	ft_replace_all(map, 'b', "v");
+	ft_replace_all_chars(map, 'b', 'v');
 }
 
 void	animate_enemies(t_map_lines **map, int *clock)
@@ -130,14 +132,14 @@ void	animate_enemies(t_map_lines **map, int *clock)
 	enemy_vertical_watch_down(map);
 	if (!*clock)
 	{
-		ft_replace_all(map, 'v', "B");
-		ft_replace_all(map, 'H', "j");
-		ft_replace_all(map, 'V', "b");
-		ft_replace_all(map, 'h', "J");
-		ft_replace_all(map, 'B', "V");
-		ft_replace_all(map, 'j', "h");
-		ft_replace_all(map, 'b', "v");
-		ft_replace_all(map, 'J', "H");
+		ft_replace_all_chars(map, 'v', 'B');
+		ft_replace_all_chars(map, 'H', 'j');
+		ft_replace_all_chars(map, 'V', 'b');
+		ft_replace_all_chars(map, 'h', 'J');
+		ft_replace_all_chars(map, 'B', 'V');
+		ft_replace_all_chars(map, 'j', 'h');
+		ft_replace_all_chars(map, 'b', 'v');
+		ft_replace_all_chars(map, 'J', 'H');
 		*clock = CLOCKWATCH;
 	}
 }

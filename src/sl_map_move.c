@@ -19,24 +19,24 @@
 void	try_move_right(t_map_lines **map, int items)
 {
 	t_map_lines	*aux;
-	int			i;
+	char		*str;
 
 	aux = *map;
 	while (aux != NULL)
 	{
-		i = 0;
-		while (aux->str[i + 1] != '\0')
+		str = aux->str;
+		while (str[1] != '\0')
 		{
-			if (aux->str[i] == 'P' && ft_strchr("0C", aux->str[i + 1]))
-				aux->str = ft_replace(aux->str, "0P", i++);
-			else if (aux->str[i] == 'P' && aux->str[i + 1] == 'E'\
-			&& (!items || ALLOWEXIT))
-				aux->str = ft_replace(aux->str, "0E", i++);
-			i++;
+			if (*str == 'P' && str[1] == 'E' && (!items || ALLOWEXIT))
+				ft_replace_this_charset(&str, "0E");
+			else if (*str == 'P' && ft_strchr("0C", str[1]))
+				ft_replace_this_charset(&str, "0p");
+			str++;
 		}
 		aux = aux->next;
 	}
 	printf("RIGHT");
+	ft_replace_all_chars(map, 'p', 'P');
 }
 
 /**
@@ -46,25 +46,49 @@ void	try_move_right(t_map_lines **map, int items)
 void	try_move_left(t_map_lines **map, int items)
 {
 	t_map_lines	*aux;
-	int			i;
+	char		*str;
 
 	aux = *map;
 	while (aux != NULL)
 	{
-		i = 0;
-		while (aux->str[i + 1] != '\0')
+		str = aux->str;
+		while (str[1] != '\0')
 		{
-			if (aux->str[i] == 'P' && ft_strchr("0C", aux->str[i - 1]))
-				aux->str = ft_replace(aux->str, "P0", i - 1);
-			else if (aux->str[i] == 'P' && aux->str[i - 1] == 'E'\
-			&& (!items || ALLOWEXIT))
-				aux->str = ft_replace(aux->str, "E0", i - 1);
-			i++;
+			if (str[1] == 'P' && *str == 'E' && (!items || ALLOWEXIT))
+				ft_replace_this_charset(&str, "E0");
+			else if (str[1] == 'P' && ft_strchr("0C", *str))
+				ft_replace_this_charset(&str, "P0");
+			str++;
 		}
 		aux = aux->next;
 	}
 	printf("LEFT");
 }
+
+// /**
+//  * * Replace all characters 'c' with str in map
+//  * @param map	map
+//  * @param c		char to replace 
+//  * @param str	str to put instead
+// */
+// void	ft_replace_all(t_map_lines **map, char c, char *str)
+// {
+// 	t_map_lines	*aux;
+// 	int			i;
+
+// 	aux = *map;
+// 	while (aux != NULL)
+// 	{
+// 		i = 0;
+// 		while (aux->str[i] != '\0')
+// 		{
+// 			if (aux->str[i] == c)
+// 				aux->str = ft_replace(aux->str, str, i);
+// 			i++;
+// 		}
+// 		aux = aux->next;
+// 	}
+// }
 
 /**
  * * Replace all characters 'c' with str in map
@@ -72,7 +96,7 @@ void	try_move_left(t_map_lines **map, int items)
  * @param c		char to replace 
  * @param str	str to put instead
 */
-void	ft_replace_all(t_map_lines **map, char c, char *str)
+void	ft_replace_all_chars(t_map_lines **map, char c1, char c2)
 {
 	t_map_lines	*aux;
 	int			i;
@@ -83,8 +107,8 @@ void	ft_replace_all(t_map_lines **map, char c, char *str)
 		i = 0;
 		while (aux->str[i] != '\0')
 		{
-			if (aux->str[i] == c)
-				aux->str = ft_replace(aux->str, str, i);
+			if (aux->str[i] == c1)
+				aux->str[i] = c2;
 			i++;
 		}
 		aux = aux->next;
@@ -98,30 +122,30 @@ void	ft_replace_all(t_map_lines **map, char c, char *str)
 void	try_move_down(t_map_lines **map, int items)
 {
 	t_map_lines	*aux;
-	t_map_lines	*next;
-	int			i;
+	char		*str;
+	char		*next;
 
 	aux = *map;
-	next = aux->next;
-	while (next != NULL)
+	while (aux->next != NULL)
 	{
-		i = -1;
-		while (aux->str[++i] != '\0')
+		str = aux->str;
+		next = aux->next->str;
+		while (*str != '\0' && *next != '\0')
 		{
-			if (aux->str[i] == 'P' && ft_strchr("0C", next->str[i]))
+			if (*str == 'P' && *next == 'E' && (!items || ALLOWEXIT))
+				str[0] = '0';
+			else if (*str == 'P' && ft_strchr("0C", *next))
 			{
-				aux->str = ft_replace(aux->str, "0", i);
-				next->str = ft_replace(next->str, "p", i);
+				str[0] = '0';
+				next[0] = 'p';
 			}
-			else if (aux->str[i] == 'P' && next->str[i] == 'E'\
-			&& (!items || ALLOWEXIT))
-				aux->str = ft_replace(aux->str, "0", i);
+			str++;
+			next++;
 		}
 		aux = aux->next;
-		next = next->next;
 	}
 	printf("DOWN");
-	ft_replace_all(map, 'p', "P");
+	ft_replace_all_chars(map, 'p', 'P');
 }
 
 /**
@@ -131,28 +155,27 @@ void	try_move_down(t_map_lines **map, int items)
 void	try_move_up(t_map_lines **map, int items)
 {
 	t_map_lines	*aux;
-	t_map_lines	*prev;
-	int			i;
+	char		*str;
+	char		*prev;
 
-	prev = *map;
-	aux = prev->next;
-	while (aux != NULL)
+	aux = *map;
+	while (aux->next != NULL)
 	{
-		i = 0;
-		while (aux->str[i] != '\0')
+		prev = aux->str;
+		str = aux->next->str;
+		while (*str != '\0' && *prev != '\0')
 		{
-			if (aux->str[i] == 'P' && ft_strchr("0C", prev->str[i]))
+			if (*str == 'P' && *prev == 'E' && (!items || ALLOWEXIT))
+				*str = '0';
+			else if (*str == 'P' && ft_strchr("0C", *prev))
 			{
-				aux->str = ft_replace(aux->str, "0", i);
-				prev->str = ft_replace(prev->str, "P", i);
+				*str = '0';
+				*prev = 'P';
 			}
-			else if (aux->str[i] == 'P' && prev->str[i] == 'E'\
-			&& (!items || ALLOWEXIT))
-				aux->str = ft_replace(aux->str, "0", i);
-			i++;
+			prev++;
+			str++;
 		}
 		aux = aux->next;
-		prev = prev->next;
 	}
 	printf("UP");
 }
