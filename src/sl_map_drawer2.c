@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:18:54 by emadriga          #+#    #+#             */
-/*   Updated: 2022/06/19 19:56:04 by emadriga         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:08:16 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,3 @@ void	ft_draw(t_vars *vars, t_map_lines *map, \
 		nbr_line++;
 	}
 }
-

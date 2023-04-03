@@ -1,0 +1,5 @@
+*.o
+so_long
+.DS_Store
+.vscode
+libft.a

@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:20:25 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/03 09:35:20 by emadriga         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:09:59 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,12 @@
  * @param charset	set of characters to replace
  * @param index		starting point of replacing
 */
-char	*ft_replace(char *str, char const *charset, size_t index)
+void	ft_replace_this_charset(char **str, char const *charset)
 {
-	char	*out;
-	int		i;
-	size_t	len;
-
-	i = -1;
-	len = ft_strlen(str);
-	out = malloc(sizeof(char) * (len + 1));
-	while (str[++i] != '\0')
-		out[i] = str[i];
-	out[i] = '\0';
-	i = -1;
-	while (charset[++i] != '\0')
-		out[index + i] = charset[i];
-	free(str);
-	return (out);
-}
-
-/**
- * * Replace a set of characters on a string starting at some index
- * @param str		string to modify 
- * @param charset	set of characters to replace
- * @param index		starting point of replacing
-*/
-void ft_replace_this_charset(char **str, char const *charset)
-{
-	char 	*aux;
+	char	*aux;
 	size_t	i;
 
-	aux = *str; 
+	aux = *str;
 	i = 0;
 	while (charset[i])
 	{

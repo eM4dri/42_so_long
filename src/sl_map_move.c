@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:21:59 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/03 09:35:17 by emadriga         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:06:19 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	try_move_right(t_map_lines **map, int items)
 	t_map_lines	*aux;
 	char		*str;
 
-	aux = *map;
-	while (aux != NULL)
+	aux = (*map)->next;
+	while (aux->next != NULL)
 	{
 		str = aux->str;
 		while (str[1] != '\0')
@@ -48,8 +48,8 @@ void	try_move_left(t_map_lines **map, int items)
 	t_map_lines	*aux;
 	char		*str;
 
-	aux = *map;
-	while (aux != NULL)
+	aux = (*map)->next;
+	while (aux->next != NULL)
 	{
 		str = aux->str;
 		while (str[1] != '\0')
@@ -65,31 +65,6 @@ void	try_move_left(t_map_lines **map, int items)
 	printf("LEFT");
 }
 
-// /**
-//  * * Replace all characters 'c' with str in map
-//  * @param map	map
-//  * @param c		char to replace 
-//  * @param str	str to put instead
-// */
-// void	ft_replace_all(t_map_lines **map, char c, char *str)
-// {
-// 	t_map_lines	*aux;
-// 	int			i;
-
-// 	aux = *map;
-// 	while (aux != NULL)
-// 	{
-// 		i = 0;
-// 		while (aux->str[i] != '\0')
-// 		{
-// 			if (aux->str[i] == c)
-// 				aux->str = ft_replace(aux->str, str, i);
-// 			i++;
-// 		}
-// 		aux = aux->next;
-// 	}
-// }
-
 /**
  * * Replace all characters 'c' with str in map
  * @param map	map
@@ -101,8 +76,8 @@ void	ft_replace_all_chars(t_map_lines **map, char c1, char c2)
 	t_map_lines	*aux;
 	int			i;
 
-	aux = *map;
-	while (aux != NULL)
+	aux = (*map)->next;
+	while (aux->next != NULL)
 	{
 		i = 0;
 		while (aux->str[i] != '\0')
@@ -125,7 +100,7 @@ void	try_move_down(t_map_lines **map, int items)
 	char		*str;
 	char		*next;
 
-	aux = *map;
+	aux = (*map)->next;
 	while (aux->next != NULL)
 	{
 		str = aux->str;
@@ -158,7 +133,7 @@ void	try_move_up(t_map_lines **map, int items)
 	char		*str;
 	char		*prev;
 
-	aux = *map;
+	aux = (*map)->next;
 	while (aux->next != NULL)
 	{
 		prev = aux->str;

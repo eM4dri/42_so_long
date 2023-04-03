@@ -6,7 +6,7 @@
 /*   By: emadriga <emadriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 08:19:21 by emadriga          #+#    #+#             */
-/*   Updated: 2021/10/09 09:14:47 by emadriga         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:42:22 by emadriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	trap_animation(t_map_lines **map)
 	t_map_lines	*aux;
 	char		*str;
 
-	aux = *map;
-	while (aux != NULL)
+	aux = (*map)->next;
+	while (aux->next != NULL)
 	{
 		str = &aux->str[1];
 		while (str[1] != '\0')
@@ -46,17 +46,17 @@ static void	enemy_horizontal_watch(t_map_lines **map)
 	t_map_lines	*aux;
 	char		*str;
 
-	aux = *map;
-	while (aux != NULL)
+	aux = (*map)->next;
+	while (aux->next != NULL)
 	{
 		str = &aux->str[1];
 		while (str[1] != '\0')
 		{
 			if (*str == '0' && str[1] == 'H')
 				ft_replace_this_charset(&str, "H0");
-			 else if ( *str == 'h' && str[1] == '0')
+			else if (*str == 'h' && str[1] == '0')
 				ft_replace_this_charset(&str, "0h");
-			else 
+			else
 				str--;
 			str += 2;
 		}
@@ -71,25 +71,25 @@ static void	enemy_horizontal_watch(t_map_lines **map)
 static void	enemy_vertical_watch_up(t_map_lines **map)
 {
 	t_map_lines	*aux;
-	t_map_lines	*prev;
-	int			i;
+	char		*str;
+	char		*next;
 
-	prev = *map;
-	aux = prev->next;
-	while (aux != NULL)
+	aux = (*map)->next;
+	while (aux->next != NULL)
 	{
-		i = 0;
-		while (aux->str[i] != '\0')
+		str = aux->str;
+		next = aux->next->str;
+		while (*str != '\0' && *next != '\0')
 		{
-			if (aux->str[i] == 'V' && prev->str[i] == '0')
+			if (*str == '0' && *next == 'V')
 			{
-				aux->str = ft_replace(aux->str, "0", i);
-				prev->str = ft_replace(prev->str, "V", i);
+				*str = 'V';
+				*next = '0';
 			}
-			i++;
+			str++;
+			next++;
 		}
 		aux = aux->next;
-		prev = prev->next;
 	}
 }
 
@@ -100,25 +100,25 @@ static void	enemy_vertical_watch_up(t_map_lines **map)
 static void	enemy_vertical_watch_down(t_map_lines **map)
 {
 	t_map_lines	*aux;
-	t_map_lines	*next;
-	int			i;
+	char		*str;
+	char		*next;
 
-	aux = *map;
-	next = aux->next;
-	while (next != NULL)
+	aux = (*map)->next;
+	while (aux->next != NULL)
 	{
-		i = 0;
-		while (aux->str[i] != '\0')
+		str = aux->str;
+		next = aux->next->str;
+		while (*str != '\0' && *next != '\0')
 		{
-			if (aux->str[i] == 'v' && next->str[i] == '0')
+			if (*str == 'v' && *next == '0')
 			{
-				aux->str = ft_replace(aux->str, "0", i);
-				next->str = ft_replace(next->str, "b", i);
+				*str = '0';
+				*next = 'b';
 			}
-			i++;
+			str++;
+			next++;
 		}
 		aux = aux->next;
-		next = next->next;
 	}
 	ft_replace_all_chars(map, 'b', 'v');
 }
